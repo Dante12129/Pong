@@ -1,0 +1,9 @@
+# IDE files
+.idea/
+
+# Project Files
+cmake/
+
+# Output
+Debug/
+Release/
