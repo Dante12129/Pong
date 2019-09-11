@@ -4,6 +4,8 @@
 
 #include "GameLogic.hpp"
 
+#include <SFML/System/Time.hpp>
+
 void GameLogic::init()
 {
 }
