@@ -4,6 +4,10 @@
 
 #include "GameLogic.hpp"
 
+void GameLogic::init()
+{
+}
+
 void GameLogic::update(sf::Time& delta)
 {
 }
