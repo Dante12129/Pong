@@ -5,6 +5,8 @@
 #ifndef CSCI437_HUMANVIEW_HPP
 #define CSCI437_HUMANVIEW_HPP
 
+#include "PaddleDirection.hpp"
+
 // Forward declarations
 namespace sf { class RenderWindow; }
 class GameLogic;
@@ -19,6 +21,9 @@ public:
     void init();
     void getKeyboardInput();
     void draw(sf::RenderWindow& window);
+
+private:
+    PaddleDirection directionToMove;
 };
 
 
