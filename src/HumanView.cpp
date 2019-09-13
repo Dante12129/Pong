@@ -4,13 +4,18 @@
 
 #include "HumanView.hpp"
 
+#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
 void HumanView::init()
 {
 }
 
-void HumanView::draw(const sf::RenderWindow& window)
+void HumanView::getKeyboardInput()
 {
 
+}
+
+void HumanView::draw(sf::RenderWindow& window)
+{
 }

@@ -17,7 +17,8 @@ public:
 
     // Game loop functionality
     void init();
-    void draw(const sf::RenderWindow& window);
+    void getKeyboardInput();
+    void draw(sf::RenderWindow& window);
 };
 
 

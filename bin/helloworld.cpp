@@ -34,11 +34,12 @@ int main(int argc, char** argv)
       if(Event.type == sf::Event::Closed)
         app.close();
     }
+    humanView.getKeyboardInput();
 
     // process logic
     logic.update(delta);
 
-    // clear screen and fill with blue
+    // clear screen and fill with black
     app.clear(sf::Color::Black);
 
     // draw human view
