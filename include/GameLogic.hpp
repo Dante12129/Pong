@@ -13,6 +13,14 @@ namespace sf { class Time; }
 class GameLogic
 {
 public:
+    // Enums
+    enum class PaddleDirection {
+        Up,
+        Down,
+        None
+    };
+
+public:
     // Constructors
     GameLogic() = default;
 
