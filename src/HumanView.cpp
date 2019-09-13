@@ -3,3 +3,14 @@
 //
 
 #include "HumanView.hpp"
+
+#include <SFML/Graphics/RenderWindow.hpp>
+
+void HumanView::init()
+{
+}
+
+void HumanView::draw(const sf::RenderWindow& window)
+{
+
+}

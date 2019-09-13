@@ -1,43 +1,51 @@
 #include <SFML/Graphics.hpp>
 
 #include "GameLogic.hpp"
+#include "HumanView.hpp"
 
 int main(int argc, char** argv)
 {
   // create main window
-  sf::RenderWindow App(sf::VideoMode(800,600,32), "Pong", sf::Style::Titlebar | sf::Style::Close);
+  sf::RenderWindow app(sf::VideoMode(800,600,32), "Pong", sf::Style::Titlebar | sf::Style::Close);
 
   // setup logic
   GameLogic logic;
   logic.init();
+
+  // setup views
+  HumanView humanView;
+  humanView.init();
 
   // setup timekeeping
   sf::Clock timekeeper;
   sf::Time delta;
 
   // start main loop
-  while(App.isOpen())
+  while(app.isOpen())
   {
     // keep track of frame
     delta = timekeeper.restart();
 
     // process events
     sf::Event Event;
-    while(App.pollEvent(Event))
+    while(app.pollEvent(Event))
     {
       // Exit
       if(Event.type == sf::Event::Closed)
-        App.close();
+        app.close();
     }
 
     // process logic
     logic.update(delta);
 
     // clear screen and fill with blue
-    App.clear(sf::Color::Black);
+    app.clear(sf::Color::Black);
+
+    // draw human view
+    humanView.draw(app);
 
     // display
-    App.display();
+    app.display();
   }
 
   // Done.
