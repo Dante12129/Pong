@@ -39,6 +39,7 @@ int main(int argc, char** argv)
     // process logic
     humanView.sendCommandsTo(logic);
     logic.update(delta);
+    humanView.updateFrom(logic);
 
     // clear screen and fill with black
     app.clear(sf::Color::Black);

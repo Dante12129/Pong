@@ -28,9 +28,18 @@ void HumanView::getKeyboardInput()
   else directionToMove = PaddleDirection::None;
 }
 
-void HumanView::sendCommandsTo(GameLogic& logic)
+void HumanView::sendCommandsTo(GameLogic& logic) const
 {
   logic.movePaddle(0, directionToMove);
+}
+
+void HumanView::updateFrom(const GameLogic& logic)
+{
+  // Update paddle sizes and positon
+  leftPaddle.setSize(logic.getPaddleSize(0));
+  leftPaddle.setPosition(logic.getPaddlePosition(0));
+  rightPaddle.setSize(logic.getPaddleSize(1));
+  rightPaddle.setPosition(logic.getPaddlePosition(1));
 }
 
 void HumanView::draw(sf::RenderWindow& window)
