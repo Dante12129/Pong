@@ -6,6 +6,9 @@
 #define CSCI437_GAMELOGIC_HPP
 
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Rect.hpp>
+
+#include "PaddleDirection.hpp"
 
 // Forward declarations
 namespace sf { class Time; }
@@ -27,8 +30,14 @@ public:
     // State accessors for ball
     sf::Vector2f getBallPosition() const;
 
+    // Commands
+    void movePaddle(int paddle, PaddleDirection direction);
+
 private:
     sf::Vector2u gameArea;
+
+    sf::FloatRect leftPaddle;
+    sf::FloatRect rightPaddle;
 };
 
 
