@@ -17,7 +17,7 @@ public:
     GameLogic() = default;
 
     // Game loop functionality
-    void init();
+    void init(const sf::Vector2u& area);
     void update(sf::Time& delta);
 
     // State accessors for paddle
@@ -26,6 +26,9 @@ public:
 
     // State accessors for ball
     sf::Vector2f getBallPosition() const;
+
+private:
+    sf::Vector2u gameArea;
 };
 
 

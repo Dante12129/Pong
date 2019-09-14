@@ -10,7 +10,7 @@ int main(int argc, char** argv)
 
   // setup logic
   GameLogic logic;
-  logic.init();
+  logic.init(app.getSize());
 
   // setup views
   HumanView humanView;
