@@ -37,6 +37,7 @@ int main(int argc, char** argv)
     humanView.getKeyboardInput();
 
     // process logic
+    humanView.sendCommandsTo(logic);
     logic.update(delta);
 
     // clear screen and fill with black
