@@ -14,7 +14,7 @@ int main(int argc, char** argv)
 
   // setup views
   HumanView humanView;
-  humanView.init();
+  humanView.init(logic);
 
   // setup timekeeping
   sf::Clock timekeeper;

@@ -4,13 +4,21 @@
 
 #include "HumanView.hpp"
 
-#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Keyboard.hpp>
 
-void HumanView::init()
+#include "GameLogic.hpp"
+
+void HumanView::init(const GameLogic& logic)
 {
+  // Make sure player paddle is initially stationary
   directionToMove = PaddleDirection::None;
+
+  // Set paddles to initial sizes and positions as defined by logic
+  leftPaddle.setSize(logic.getPaddleSize(0));
+  leftPaddle.setPosition(logic.getPaddlePosition(0));
+  rightPaddle.setSize(logic.getPaddleSize(1));
+  rightPaddle.setPosition(logic.getPaddlePosition(1));
 }
 
 void HumanView::getKeyboardInput()
@@ -22,4 +30,6 @@ void HumanView::getKeyboardInput()
 
 void HumanView::draw(sf::RenderWindow& window)
 {
+  window.draw(leftPaddle);
+  window.draw(rightPaddle);
 }

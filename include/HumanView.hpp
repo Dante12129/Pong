@@ -5,6 +5,8 @@
 #ifndef CSCI437_HUMANVIEW_HPP
 #define CSCI437_HUMANVIEW_HPP
 
+#include <SFML/Graphics/RectangleShape.hpp>
+
 #include "PaddleDirection.hpp"
 
 // Forward declarations
@@ -18,12 +20,15 @@ public:
     HumanView() = default;
 
     // Game loop functionality
-    void init();
+    void init(const GameLogic& logic);
     void getKeyboardInput();
     void draw(sf::RenderWindow& window);
 
 private:
     PaddleDirection directionToMove;
+
+    sf::RectangleShape leftPaddle;
+    sf::RectangleShape rightPaddle;
 };
 
 
