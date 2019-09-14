@@ -22,6 +22,7 @@ public:
     // Game loop functionality
     void init(const GameLogic& logic);
     void getKeyboardInput();
+    void sendCommandsTo(GameLogic& logic);
     void draw(sf::RenderWindow& window);
 
 private:

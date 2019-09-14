@@ -28,6 +28,11 @@ void HumanView::getKeyboardInput()
   else directionToMove = PaddleDirection::None;
 }
 
+void HumanView::sendCommandsTo(GameLogic& logic)
+{
+  logic.movePaddle(0, directionToMove);
+}
+
 void HumanView::draw(sf::RenderWindow& window)
 {
   window.draw(leftPaddle);
