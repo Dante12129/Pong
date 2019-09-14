@@ -38,6 +38,9 @@ private:
 
     sf::FloatRect leftPaddle;
     sf::FloatRect rightPaddle;
+
+    float leftVelocity;
+    float rightVelocity;
 };
 
 

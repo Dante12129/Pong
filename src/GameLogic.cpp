@@ -19,6 +19,9 @@ void GameLogic::init(const sf::Vector2u& area)
 
 void GameLogic::update(sf::Time& delta)
 {
+  // Move paddles appropriate amount
+  leftPaddle.top += leftVelocity * delta.asSeconds();
+  rightPaddle.top += rightVelocity * delta.asSeconds();
 }
 
 sf::Vector2f GameLogic::getPaddlePosition(int paddle) const
@@ -42,17 +45,17 @@ sf::Vector2f GameLogic::getBallPosition() const
 
 void GameLogic::movePaddle(int paddle, PaddleDirection direction)
 {
-  // Select appropriate paddle
-  sf::FloatRect& chosenRect = leftPaddle;
-  if(paddle == 1) chosenRect = rightPaddle;
+  // Select appropriate velocity
+  float& velocity = leftVelocity;
+  if(paddle == 1) velocity = rightVelocity;
 
   // Apply movement to paddle
   if(direction == PaddleDirection::Up)
   {
-    chosenRect.top -= 10;
+    velocity = -100;
   }
   else if(direction == PaddleDirection::Down)
   {
-    chosenRect.top += 10;
+    velocity = 100;
   }
 }
