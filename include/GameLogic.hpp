@@ -20,7 +20,7 @@ public:
     GameLogic() = default;
 
     // Game loop functionality
-    void init(const sf::Vector2u& area);
+    void init(const sf::Vector2u& dimensions);
     void update(sf::Time& delta);
 
     // State accessors for paddle
@@ -34,7 +34,7 @@ public:
     void movePaddle(int paddle, PaddleDirection direction);
 
 private:
-    sf::Vector2u gameArea;
+    sf::Vector2u gameDimensions;
 
     sf::FloatRect leftPaddle;
     sf::FloatRect rightPaddle;

@@ -6,15 +6,15 @@
 
 #include <SFML/System/Time.hpp>
 
-void GameLogic::init(const sf::Vector2u& area)
+void GameLogic::init(const sf::Vector2u& dimensions)
 {
   // Set up the playing area
-  gameArea = area;
+  gameDimensions = dimensions;
 
   // Put paddles in starting positions
   const sf::Vector2f paddleSize(25, 100);
   leftPaddle = sf::FloatRect({0, 0}, paddleSize);
-  rightPaddle = sf::FloatRect({gameArea.x - paddleSize.x, 0}, paddleSize);
+  rightPaddle = sf::FloatRect({gameDimensions.x - paddleSize.x, 0}, paddleSize);
 }
 
 void GameLogic::update(sf::Time& delta)
@@ -22,6 +22,13 @@ void GameLogic::update(sf::Time& delta)
   // Move paddles appropriate amount
   leftPaddle.top += leftVelocity * delta.asSeconds();
   rightPaddle.top += rightVelocity * delta.asSeconds();
+
+  // Ensure paddles don't leave the playing area
+  if(leftPaddle.top < 0) leftPaddle.top = 0;
+  else if(leftPaddle.top + leftPaddle.height > gameDimensions.y) leftPaddle.top = gameDimensions.y - leftPaddle.height;
+
+  if(rightPaddle.top < 0) rightPaddle.top = 0;
+  else if(rightPaddle.top + rightPaddle.height > gameDimensions.y) rightPaddle.top = gameDimensions.y - rightPaddle.height;
 }
 
 sf::Vector2f GameLogic::getPaddlePosition(int paddle) const
@@ -52,10 +59,10 @@ void GameLogic::movePaddle(int paddle, PaddleDirection direction)
   // Apply movement to paddle
   if(direction == PaddleDirection::Up)
   {
-    velocity = -100;
+    velocity = -200;
   }
   else if(direction == PaddleDirection::Down)
   {
-    velocity = 100;
+    velocity = 200;
   }
 }
