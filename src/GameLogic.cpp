@@ -57,12 +57,7 @@ void GameLogic::movePaddle(int paddle, PaddleDirection direction)
   if(paddle == 1) velocity = rightVelocity;
 
   // Apply movement to paddle
-  if(direction == PaddleDirection::Up)
-  {
-    velocity = -200;
-  }
-  else if(direction == PaddleDirection::Down)
-  {
-    velocity = 200;
-  }
+  if(direction == PaddleDirection::Up) velocity = -200;
+  else if(direction == PaddleDirection::Down) velocity = 200;
+  else velocity = 0;
 }
