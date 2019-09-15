@@ -6,8 +6,22 @@
 
 #include <SFML/System/Time.hpp>
 
+namespace
+{
+    int sign(float n)
+    {
+      if(n < 0) return -1;
+      else if(n > 0) return 1;
+      else return 0;
+    }
+}
+
 void GameLogic::init(const sf::Vector2u& dimensions)
 {
+  // Setup the RNG
+  rng.seed(0);
+  distribution = std::uniform_int_distribution<>(0, 100);
+
   // Set up the playing area
   gameDimensions = dimensions;
 
@@ -17,7 +31,7 @@ void GameLogic::init(const sf::Vector2u& dimensions)
   rightPaddle.init({gameDimensions.x - paddleSize.x, 0}, paddleSize);
 
   // Setup ball
-  ball.init();
+  ball.init(initialBallVelocity);
 
   // Setup scores
   leftScore = 0;
@@ -49,16 +63,14 @@ void GameLogic::update(sf::Time& delta)
   {
     ball.setCenter(static_cast<sf::Vector2f>(gameDimensions / 2u));
     rightScore += 1;
-//    ball.setCenter(static_cast<sf::Vector2f>(gameDimensions / 2u));
   }
   if(ball.getCenter().x + ball.getRadius() > gameDimensions.x)
   {
     ball.setCenter(static_cast<sf::Vector2f>(gameDimensions / 2u));
     leftScore += 1;
-//    ball.setVelocity({-ball.getVelocity().x, ball.getVelocity().y});
   }
   if(ball.getCenter().y - ball.getRadius() < 0 || ball.getCenter().y + ball.getRadius() > gameDimensions.y)
-    ball.setVelocity({ball.getVelocity().x, -ball.getVelocity().y});
+    ball.setVelocity({ball.getVelocity().x, -sign(ball.getVelocity().y) * (initialBallVelocity.y + distribution(rng))});
 
   // Check ball against paddles
   if(ball.getCenter().x - ball.getRadius() < leftPaddle.getPosition().x + leftPaddle.getSize().x &&
@@ -66,7 +78,7 @@ void GameLogic::update(sf::Time& delta)
      ball.getCenter().y < leftPaddle.getPosition().y + leftPaddle.getSize().y)
   {
     ball.setCenter({leftPaddle.getPosition().x + leftPaddle.getSize().x + ball.getRadius(), ball.getCenter().y});
-    ball.setVelocity({-ball.getVelocity().x, ball.getVelocity().y});
+    ball.setVelocity({-sign(ball.getVelocity().x) * (initialBallVelocity.x + distribution(rng)), ball.getVelocity().y});
   }
 
   if(ball.getCenter().x + ball.getRadius() > rightPaddle.getPosition().x &&
@@ -74,7 +86,7 @@ void GameLogic::update(sf::Time& delta)
      ball.getCenter().y < rightPaddle.getPosition().y + leftPaddle.getSize().y)
   {
     ball.setCenter({rightPaddle.getPosition().x - ball.getRadius(), ball.getCenter().y});
-    ball.setVelocity({-ball.getVelocity().x, ball.getVelocity().y});
+    ball.setVelocity({-sign(ball.getVelocity().x) * (initialBallVelocity.x + distribution(rng)), ball.getVelocity().y});
   }
 }
 

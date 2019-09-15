@@ -6,11 +6,11 @@
 
 #include <SFML/System/Time.hpp>
 
-void Ball::init()
+void Ball::init(const sf::Vector2f& vel)
 {
   center = {100, 100};
   radius = 20;
-  velocity = {250, 250};
+  velocity = vel;
 }
 
 void Ball::move(const sf::Time& delta)

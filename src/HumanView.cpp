@@ -65,7 +65,7 @@ void HumanView::sendCommandsTo(GameLogic& logic) const
 
 void HumanView::updateFrom(const GameLogic& logic)
 {
-  // Update paddle sizes and positon
+  // Update paddle sizes and position
   leftPaddle.setSize(logic.getPaddleSize(0));
   leftPaddle.setPosition(logic.getPaddlePosition(0));
   rightPaddle.setSize(logic.getPaddleSize(1));

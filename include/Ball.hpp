@@ -14,7 +14,7 @@ class Ball
 {
 public:
     // Lifetime methods
-    void init();
+    void init(const sf::Vector2f& vel);
 
     // Commands
     void move(const sf::Time& delta);

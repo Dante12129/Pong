@@ -5,6 +5,8 @@
 #ifndef CSCI437_GAMELOGIC_HPP
 #define CSCI437_GAMELOGIC_HPP
 
+#include <random>
+
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Rect.hpp>
 
@@ -40,12 +42,20 @@ public:
     int getScore(int paddle) const;
 
 private:
-    sf::Vector2u gameDimensions;
+    // RNG
+    std::mt19937 rng;
+    std::uniform_int_distribution<int> distribution;
 
+    // Elements to keep track of
+    sf::Vector2u gameDimensions;
+    const sf::Vector2f initialBallVelocity = {250, 250};
+
+    // Physical elements
     Paddle leftPaddle;
     Paddle rightPaddle;
     Ball ball;
 
+    // Logical elements
     int leftScore;
     int rightScore;
 };
