@@ -34,7 +34,7 @@ void GameLogic::init(const sf::Vector2u& dimensions)
   ball.init(initialBallVelocity);
 
   // Setup scores
-  leftScore = 10;
+  leftScore = 0;
   rightScore = 0;
 }
 
@@ -141,6 +141,13 @@ int GameLogic::getScore(int paddle) const
 bool GameLogic::checkWin() const
 {
   return leftScore >= 11 || rightScore >= 11;
+}
+
+int GameLogic::getWinningPlayer() const
+{
+  if(leftScore >= 11) return 0;
+  else if(rightScore >= 11) return 1;
+  else return -1;
 }
 
 // TODO: Win/lose message

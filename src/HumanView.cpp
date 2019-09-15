@@ -85,7 +85,7 @@ void HumanView::updateFrom(const GameLogic& logic)
   // Check for win
   if(logic.checkWin())
   {
-    finalMessage.setString("Someone won!");
+    finalMessage.setString(logic.getWinningPlayer() == 0 ? "You won!" : "You lost!");
     finalMessage.setOrigin({finalMessage.getLocalBounds().left + finalMessage.getLocalBounds().width / 2.f, 0});
     finalMessage.setPosition({viewDimensions.x / 2.f, 100});
   }

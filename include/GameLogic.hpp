@@ -43,6 +43,7 @@ public:
 
     // Sate accessors for game stage
     bool checkWin() const;
+    int getWinningPlayer() const;
 
 private:
     // RNG
