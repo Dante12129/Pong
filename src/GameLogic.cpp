@@ -78,6 +78,19 @@ void GameLogic::update(sf::Time& delta)
   }
 }
 
+void GameLogic::movePaddle(int paddle, PaddleDirection direction)
+{
+  // Select appropriate paddle
+  Paddle* selectedPaddle = nullptr;
+  if(paddle == 0) selectedPaddle = &leftPaddle;
+  if(paddle == 1) selectedPaddle = &rightPaddle;
+
+  // Apply movement to paddle
+  if(direction == PaddleDirection::Up) selectedPaddle->setVelocity(-200);
+  else if(direction == PaddleDirection::Down) selectedPaddle->setVelocity(200);
+  else selectedPaddle->setVelocity(0);
+}
+
 sf::Vector2f GameLogic::getPaddlePosition(int paddle) const
 {
   if(paddle == 0) return leftPaddle.getPosition();
@@ -102,15 +115,9 @@ float GameLogic::getBallRadius() const
   return ball.getRadius();
 }
 
-void GameLogic::movePaddle(int paddle, PaddleDirection direction)
+int GameLogic::getScore(int paddle) const
 {
-  // Select appropriate paddle
-  Paddle* selectedPaddle = nullptr;
-  if(paddle == 0) selectedPaddle = &leftPaddle;
-  if(paddle == 1) selectedPaddle = &rightPaddle;
-
-  // Apply movement to paddle
-  if(direction == PaddleDirection::Up) selectedPaddle->setVelocity(-200);
-  else if(direction == PaddleDirection::Down) selectedPaddle->setVelocity(200);
-  else selectedPaddle->setVelocity(0);
+  if(paddle == 0) return leftScore;
+  else if(paddle == 1) return rightScore;
+  else return -1;
 }

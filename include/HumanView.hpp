@@ -6,7 +6,9 @@
 #define CSCI437_HUMANVIEW_HPP
 
 #include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 #include "PaddleDirection.hpp"
 
@@ -33,6 +35,10 @@ private:
     sf::RectangleShape leftPaddle;
     sf::RectangleShape rightPaddle;
     sf::CircleShape ball;
+
+    sf::Font mainFont;
+    sf::Text playerScore;
+    sf::Text aiScore;
 };
 
 

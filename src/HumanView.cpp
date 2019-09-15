@@ -4,6 +4,8 @@
 
 #include "HumanView.hpp"
 
+#include <stdexcept>
+
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Keyboard.hpp>
 
@@ -30,6 +32,14 @@ void HumanView::init(const GameLogic& logic)
   leftPaddle.setFillColor(sf::Color::Green);
   rightPaddle.setFillColor(sf::Color::Red);
   ball.setFillColor(sf::Color::Cyan);
+
+  // Load font and use it for scores
+  if(!mainFont.loadFromFile("ShareTechMono-Regular.ttf"))
+  {
+    throw std::runtime_error("Could not load font");
+  }
+  playerScore.setFont(mainFont);
+  aiScore.setFont(mainFont);
 }
 
 void HumanView::getKeyboardInput()
@@ -54,11 +64,17 @@ void HumanView::updateFrom(const GameLogic& logic)
 
   // Update ball position
   ball.setPosition(logic.getBallPosition());
+
+  // Update scores
+  playerScore.setString(std::to_string(logic.getScore(0)));
+  aiScore.setString(std::to_string(logic.getScore(1)));
 }
 
 void HumanView::draw(sf::RenderWindow& window)
 {
   window.draw(leftPaddle);
   window.draw(rightPaddle);
+  window.draw(playerScore);
+  window.draw(aiScore);
   window.draw(ball);
 }

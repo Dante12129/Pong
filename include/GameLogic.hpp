@@ -25,6 +25,9 @@ public:
     void init(const sf::Vector2u& dimensions);
     void update(sf::Time& delta);
 
+    // Commands
+    void movePaddle(int paddle, PaddleDirection direction);
+
     // State accessors for paddle
     sf::Vector2f getPaddlePosition(int paddle) const;
     sf::Vector2f getPaddleSize(int paddle) const;
@@ -33,8 +36,8 @@ public:
     sf::Vector2f getBallPosition() const;
     float getBallRadius() const;
 
-    // Commands
-    void movePaddle(int paddle, PaddleDirection direction);
+    // State accessor for score
+    int getScore(int paddle) const;
 
 private:
     sf::Vector2u gameDimensions;
