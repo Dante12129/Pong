@@ -8,6 +8,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Rect.hpp>
 
+#include "Ball.hpp"
 #include "Paddle.hpp"
 #include "PaddleDirection.hpp"
 
@@ -39,6 +40,7 @@ private:
 
     Paddle leftPaddle;
     Paddle rightPaddle;
+    Ball ball;
 };
 
 
