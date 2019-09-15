@@ -69,13 +69,15 @@ void HumanView::getKeyboardInput()
 
   if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     restartRequested = true;
+  else
+    restartRequested = false;
 }
 
 void HumanView::sendCommandsTo(GameLogic& logic) const
 {
   logic.movePaddle(0, directionToMove);
 
-  if(restartRequested)
+  if(restartRequested && logic.checkWin())
   {
     restartRequested = false;
     logic.restart();
