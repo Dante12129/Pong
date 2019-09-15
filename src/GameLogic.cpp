@@ -26,6 +26,9 @@ void GameLogic::update(sf::Time& delta)
   leftPaddle.move(delta);
   rightPaddle.move(delta);
 
+  // Move ball
+  ball.move(delta);
+
   // Ensure paddles don't leave the playing area
   if(leftPaddle.getPosition().y < 0) leftPaddle.setPosition({leftPaddle.getPosition().x, 0});
   else if(leftPaddle.getPosition().y + leftPaddle.getSize().y > gameDimensions.y) leftPaddle.setPosition({leftPaddle.getPosition().x, gameDimensions.y - leftPaddle.getSize().y});

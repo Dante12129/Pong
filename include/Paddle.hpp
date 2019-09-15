@@ -16,7 +16,7 @@ public:
     // Lifetime methods
     void init(const sf::Vector2f& position, const sf::Vector2f& size);
 
-    // Logic
+    // Commands
     void move(const sf::Time& delta);
 
     // State accessors

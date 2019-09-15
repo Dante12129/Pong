@@ -20,7 +20,7 @@ void HumanView::init(const GameLogic& logic)
   rightPaddle.setSize(logic.getPaddleSize(1));
   rightPaddle.setPosition(logic.getPaddlePosition(1));
 
-  // Set ball to inital position and size, making sure its origin is on the center
+  // Set ball to initial position and size, making sure its origin is on the center
   float radius = logic.getBallRadius();
   ball.setRadius(radius);
   ball.setOrigin({radius / 2, radius / 2});
@@ -51,6 +51,9 @@ void HumanView::updateFrom(const GameLogic& logic)
   leftPaddle.setPosition(logic.getPaddlePosition(0));
   rightPaddle.setSize(logic.getPaddleSize(1));
   rightPaddle.setPosition(logic.getPaddlePosition(1));
+
+  // Update ball position
+  ball.setPosition(logic.getBallPosition());
 }
 
 void HumanView::draw(sf::RenderWindow& window)
