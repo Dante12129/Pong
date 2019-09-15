@@ -5,6 +5,7 @@
 #ifndef CSCI437_HUMANVIEW_HPP
 #define CSCI437_HUMANVIEW_HPP
 
+#include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 
 #include "PaddleDirection.hpp"
@@ -31,6 +32,7 @@ private:
 
     sf::RectangleShape leftPaddle;
     sf::RectangleShape rightPaddle;
+    sf::CircleShape ball;
 };
 
 

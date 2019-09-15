@@ -19,6 +19,12 @@ void HumanView::init(const GameLogic& logic)
   leftPaddle.setPosition(logic.getPaddlePosition(0));
   rightPaddle.setSize(logic.getPaddleSize(1));
   rightPaddle.setPosition(logic.getPaddlePosition(1));
+
+  // Set ball to inital position and size, making sure its origin is on the center
+  float radius = logic.getBallRadius();
+  ball.setRadius(radius);
+  ball.setOrigin({radius / 2, radius / 2});
+  ball.setPosition(logic.getBallPosition());
 }
 
 void HumanView::getKeyboardInput()
@@ -46,4 +52,5 @@ void HumanView::draw(sf::RenderWindow& window)
 {
   window.draw(leftPaddle);
   window.draw(rightPaddle);
+  window.draw(ball);
 }

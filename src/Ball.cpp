@@ -7,7 +7,7 @@
 void Ball::init()
 {
   center = {200, 200};
-  radius = 30;
+  radius = 20;
 }
 
 sf::Vector2f Ball::getCenter() const
