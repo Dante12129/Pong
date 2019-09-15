@@ -18,6 +18,10 @@ void GameLogic::init(const sf::Vector2u& dimensions)
 
   // Setup ball
   ball.init();
+
+  // Setup scores
+  leftScore = 0;
+  rightScore = 0;
 }
 
 void GameLogic::update(sf::Time& delta)
@@ -41,8 +45,18 @@ void GameLogic::update(sf::Time& delta)
     rightPaddle.setPosition({rightPaddle.getPosition().x, gameDimensions.y - rightPaddle.getSize().y});
 
   // Keep ball in bounds
-  if(ball.getCenter().x - ball.getRadius() < 0 || ball.getCenter().x + ball.getRadius() > gameDimensions.x)
-    ball.setVelocity({-ball.getVelocity().x, ball.getVelocity().y});
+  if(ball.getCenter().x - ball.getRadius() < 0)
+  {
+    ball.setCenter(static_cast<sf::Vector2f>(gameDimensions / 2u));
+    rightScore += 1;
+//    ball.setCenter(static_cast<sf::Vector2f>(gameDimensions / 2u));
+  }
+  if(ball.getCenter().x + ball.getRadius() > gameDimensions.x)
+  {
+    ball.setCenter(static_cast<sf::Vector2f>(gameDimensions / 2u));
+    leftScore += 1;
+//    ball.setVelocity({-ball.getVelocity().x, ball.getVelocity().y});
+  }
   if(ball.getCenter().y - ball.getRadius() < 0 || ball.getCenter().y + ball.getRadius() > gameDimensions.y)
     ball.setVelocity({ball.getVelocity().x, -ball.getVelocity().y});
 

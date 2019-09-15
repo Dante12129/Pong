@@ -42,6 +42,9 @@ private:
     Paddle leftPaddle;
     Paddle rightPaddle;
     Ball ball;
+
+    int leftScore;
+    int rightScore;
 };
 
 
