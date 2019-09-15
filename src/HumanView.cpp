@@ -56,21 +56,23 @@ void HumanView::init(const GameLogic& logic, const sf::Vector2u& dimensions)
 
   // Setup restart message
   restartInstruction.setFont(mainFont);
-  restartInstruction.setString("Press space to reset");
+  restartInstruction.setString("Press space to reset\nPress q to quit");
   restartInstruction.setCharacterSize(60);
   restartInstruction.setOrigin({restartInstruction.getLocalBounds().left + restartInstruction.getLocalBounds().width / 2.f, 0});
 }
 
 void HumanView::getKeyboardInput()
 {
+  // Paddle controls
   if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) directionToMove = PaddleDirection::Down;
   else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) directionToMove = PaddleDirection::Up;
   else directionToMove = PaddleDirection::None;
 
-  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-    restartRequested = true;
-  else
-    restartRequested = false;
+  // Restart control
+  restartRequested = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
+
+  // Quit control
+  quitRequested = sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
 }
 
 void HumanView::sendCommandsTo(GameLogic& logic) const
@@ -82,6 +84,11 @@ void HumanView::sendCommandsTo(GameLogic& logic) const
     restartRequested = false;
     logic.restart();
   }
+}
+
+void HumanView::sendCommandsTo(bool& running) const
+{
+  running = !quitRequested;
 }
 
 void HumanView::updateFrom(const GameLogic& logic)
@@ -102,16 +109,24 @@ void HumanView::updateFrom(const GameLogic& logic)
   // Check for win
   if(logic.checkWin())
   {
+    // Show win/lose messages
     finalMessage.setString(logic.getWinningPlayer() == 0 ? "You won!" : "You lost!");
     finalMessage.setOrigin({finalMessage.getLocalBounds().left + finalMessage.getLocalBounds().width / 2.f, 0});
     finalMessage.setPosition({viewDimensions.x / 2.f, 100});
     restartInstruction.setPosition({viewDimensions.x / 2.f, 200});
     restartInstruction.setFillColor(sf::Color::White);
+
+    // Hide Ball
+    ball.setFillColor(sf::Color::Transparent);
   }
   else
   {
+    // Hide win/lose messages
     finalMessage.setString("");
     restartInstruction.setFillColor(sf::Color::Transparent);
+
+    // Show ball
+    ball.setFillColor(sf::Color::Cyan);
   }
 }
 

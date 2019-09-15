@@ -26,6 +26,7 @@ public:
     void init(const GameLogic& logic, const sf::Vector2u& dimensions);
     void getKeyboardInput();
     void sendCommandsTo(GameLogic& logic) const;
+    void sendCommandsTo(bool& running) const;
     void updateFrom(const GameLogic& logic);
     void draw(sf::RenderWindow& window);
 
@@ -34,6 +35,7 @@ private:
     sf::Vector2u viewDimensions;
     PaddleDirection directionToMove;
     mutable bool restartRequested = false;
+    bool quitRequested = false;
 
     // Game object visuals
     sf::RectangleShape leftPaddle;

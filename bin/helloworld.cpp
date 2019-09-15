@@ -24,7 +24,8 @@ int main(int argc, char** argv)
   sf::Time delta;
 
   // start main loop
-  while(app.isOpen())
+  bool running = true;
+  while(running)
   {
     // keep track of frame
     delta = timekeeper.restart();
@@ -38,6 +39,7 @@ int main(int argc, char** argv)
         app.close();
     }
     humanView.getKeyboardInput();
+    humanView.sendCommandsTo(running);
 
     // process logic
     humanView.sendCommandsTo(logic);
