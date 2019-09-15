@@ -41,12 +41,15 @@ public:
     // State accessor for score
     int getScore(int paddle) const;
 
+    // Sate accessors for game stage
+    bool checkWin() const;
+
 private:
     // RNG
     std::mt19937 rng;
     std::uniform_int_distribution<int> distribution;
 
-    // Elements to keep track of
+    // Misc elements
     sf::Vector2u gameDimensions;
     const sf::Vector2f initialBallVelocity = {250, 250};
 

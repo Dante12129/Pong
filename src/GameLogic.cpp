@@ -34,7 +34,7 @@ void GameLogic::init(const sf::Vector2u& dimensions)
   ball.init(initialBallVelocity);
 
   // Setup scores
-  leftScore = 0;
+  leftScore = 10;
   rightScore = 0;
 }
 
@@ -61,13 +61,17 @@ void GameLogic::update(sf::Time& delta)
   // Keep ball in bounds
   if(ball.getCenter().x - ball.getRadius() < 0)
   {
-    ball.setCenter(static_cast<sf::Vector2f>(gameDimensions / 2u));
     rightScore += 1;
+    ball.setCenter(static_cast<sf::Vector2f>(gameDimensions / 2u));
+    if(checkWin())
+      ball.setVelocity({0, 0});
   }
   if(ball.getCenter().x + ball.getRadius() > gameDimensions.x)
   {
-    ball.setCenter(static_cast<sf::Vector2f>(gameDimensions / 2u));
     leftScore += 1;
+    ball.setCenter(static_cast<sf::Vector2f>(gameDimensions / 2u));
+    if(checkWin())
+      ball.setVelocity({0, 0});
   }
   if(ball.getCenter().y - ball.getRadius() < 0 || ball.getCenter().y + ball.getRadius() > gameDimensions.y)
     ball.setVelocity({ball.getVelocity().x, -sign(ball.getVelocity().y) * (initialBallVelocity.y + distribution(rng))});
@@ -133,3 +137,15 @@ int GameLogic::getScore(int paddle) const
   else if(paddle == 1) return rightScore;
   else return -1;
 }
+
+bool GameLogic::checkWin() const
+{
+  return leftScore >= 11 || rightScore >= 11;
+}
+
+// TODO: Win/lose message
+// TODO: Pause
+// Todo: Resizing window
+// TODO: Fix reflection angle
+// TODO: Normalize ball velocity
+// TODO: Better collision detectiong

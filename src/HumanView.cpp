@@ -43,12 +43,16 @@ void HumanView::init(const GameLogic& logic, const sf::Vector2u& dimensions)
   }
   playerScore.setFont(mainFont);
   aiScore.setFont(mainFont);
+  finalMessage.setFont(mainFont);
 
   // Position and size scores
   playerScore.setPosition({viewDimensions.x / 4.f, 0});
   playerScore.setCharacterSize(48);
   aiScore.setPosition({3.f * viewDimensions.x / 4.f, 0});
   aiScore.setCharacterSize(48);
+
+  // Set size of win/lose message
+  finalMessage.setCharacterSize(72);
 }
 
 void HumanView::getKeyboardInput()
@@ -77,6 +81,14 @@ void HumanView::updateFrom(const GameLogic& logic)
   // Update scores
   playerScore.setString(std::to_string(logic.getScore(0)));
   aiScore.setString(std::to_string(logic.getScore(1)));
+
+  // Check for win
+  if(logic.checkWin())
+  {
+    finalMessage.setString("Someone won!");
+    finalMessage.setOrigin({finalMessage.getLocalBounds().left + finalMessage.getLocalBounds().width / 2.f, 0});
+    finalMessage.setPosition({viewDimensions.x / 2.f, 100});
+  }
 }
 
 void HumanView::draw(sf::RenderWindow& window)
@@ -86,4 +98,5 @@ void HumanView::draw(sf::RenderWindow& window)
   window.draw(playerScore);
   window.draw(aiScore);
   window.draw(ball);
+  window.draw(finalMessage);
 }

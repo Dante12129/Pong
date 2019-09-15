@@ -40,6 +40,7 @@ private:
     sf::Font mainFont;
     sf::Text playerScore;
     sf::Text aiScore;
+    sf::Text finalMessage;
 };
 
 
