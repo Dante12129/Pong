@@ -20,7 +20,7 @@ void GameLogic::init(const sf::Vector2u& dimensions)
 {
   // Setup the RNG
   rng.seed(0);
-  distribution = std::uniform_int_distribution<>(0, 100);
+  distribution = std::uniform_int_distribution<>(100, 200);
 
   // Set up the playing area
   gameDimensions = dimensions;
