@@ -45,6 +45,7 @@ private:
     sf::Text playerScore;
     sf::Text aiScore;
     sf::Text finalMessage;
+    sf::Text restartInstruction;
 };
 
 

@@ -53,6 +53,12 @@ void HumanView::init(const GameLogic& logic, const sf::Vector2u& dimensions)
 
   // Set size of win/lose message
   finalMessage.setCharacterSize(72);
+
+  // Setup restart message
+  restartInstruction.setFont(mainFont);
+  restartInstruction.setString("Press space to reset");
+  restartInstruction.setCharacterSize(60);
+  restartInstruction.setOrigin({restartInstruction.getLocalBounds().left + restartInstruction.getLocalBounds().width / 2.f, 0});
 }
 
 void HumanView::getKeyboardInput()
@@ -97,6 +103,13 @@ void HumanView::updateFrom(const GameLogic& logic)
     finalMessage.setString(logic.getWinningPlayer() == 0 ? "You won!" : "You lost!");
     finalMessage.setOrigin({finalMessage.getLocalBounds().left + finalMessage.getLocalBounds().width / 2.f, 0});
     finalMessage.setPosition({viewDimensions.x / 2.f, 100});
+    restartInstruction.setPosition({viewDimensions.x / 2.f, 200});
+    restartInstruction.setFillColor(sf::Color::White);
+  }
+  else
+  {
+    finalMessage.setString("");
+    restartInstruction.setFillColor(sf::Color::Transparent);
   }
 }
 
@@ -108,4 +121,5 @@ void HumanView::draw(sf::RenderWindow& window)
   window.draw(aiScore);
   window.draw(ball);
   window.draw(finalMessage);
+  window.draw(restartInstruction);
 }

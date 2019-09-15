@@ -34,7 +34,7 @@ void GameLogic::init(const sf::Vector2u& dimensions)
   ball.init(static_cast<sf::Vector2f>(gameDimensions / 2u), initialBallVelocity);
 
   // Setup scores
-  leftScore = 0;
+  leftScore = 10;
   rightScore = 0;
 }
 
