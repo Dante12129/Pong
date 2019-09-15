@@ -107,6 +107,11 @@ void GameLogic::movePaddle(int paddle, PaddleDirection direction)
   else selectedPaddle->setVelocity(0);
 }
 
+void GameLogic::restart()
+{
+  init(gameDimensions);
+}
+
 sf::Vector2f GameLogic::getPaddlePosition(int paddle) const
 {
   if(paddle == 0) return leftPaddle.getPosition();
@@ -150,8 +155,9 @@ int GameLogic::getWinningPlayer() const
   else return -1;
 }
 
+// TODO: Restart
 // TODO: Pause
 // Todo: Resizing window
 // TODO: Fix reflection angle
 // TODO: Normalize ball velocity
-// TODO: Better collision detectiong
+// TODO: Better collision detection

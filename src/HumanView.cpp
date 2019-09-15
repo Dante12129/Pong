@@ -60,11 +60,20 @@ void HumanView::getKeyboardInput()
   if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) directionToMove = PaddleDirection::Down;
   else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) directionToMove = PaddleDirection::Up;
   else directionToMove = PaddleDirection::None;
+
+  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    restartRequested = true;
 }
 
 void HumanView::sendCommandsTo(GameLogic& logic) const
 {
   logic.movePaddle(0, directionToMove);
+
+  if(restartRequested)
+  {
+    restartRequested = false;
+    logic.restart();
+  }
 }
 
 void HumanView::updateFrom(const GameLogic& logic)

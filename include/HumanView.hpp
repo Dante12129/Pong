@@ -30,13 +30,17 @@ public:
     void draw(sf::RenderWindow& window);
 
 private:
+    // Elements to keep track of
     sf::Vector2u viewDimensions;
     PaddleDirection directionToMove;
+    mutable bool restartRequested = false;
 
+    // Game object visuals
     sf::RectangleShape leftPaddle;
     sf::RectangleShape rightPaddle;
     sf::CircleShape ball;
 
+    // Game value visuals
     sf::Font mainFont;
     sf::Text playerScore;
     sf::Text aiScore;

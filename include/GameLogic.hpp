@@ -29,6 +29,7 @@ public:
 
     // Commands
     void movePaddle(int paddle, PaddleDirection direction);
+    void restart();
 
     // State accessors for paddle
     sf::Vector2f getPaddlePosition(int paddle) const;
