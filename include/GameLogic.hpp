@@ -31,6 +31,7 @@ public:
 
     // State accessors for ball
     sf::Vector2f getBallPosition() const;
+    float getBallRadius() const;
 
     // Commands
     void movePaddle(int paddle, PaddleDirection direction);

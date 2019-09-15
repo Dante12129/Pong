@@ -5,10 +5,21 @@
 #ifndef CSCI437_BALL_HPP
 #define CSCI437_BALL_HPP
 
+#include <SFML/System/Vector2.hpp>
 
 class Ball
 {
+public:
+    // Lifetime methods
+    void init();
 
+    // State accessors
+    sf::Vector2f getCenter() const;
+    float getRadius() const;
+
+private:
+    sf::Vector2f center;
+    float radius;
 };
 
 

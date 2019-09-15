@@ -3,3 +3,19 @@
 //
 
 #include "Ball.hpp"
+
+void Ball::init()
+{
+  center = {200, 200};
+  radius = 30;
+}
+
+sf::Vector2f Ball::getCenter() const
+{
+  return center;
+}
+
+float Ball::getRadius() const
+{
+  return radius;
+}

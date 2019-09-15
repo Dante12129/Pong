@@ -15,6 +15,9 @@ void GameLogic::init(const sf::Vector2u& dimensions)
   const sf::Vector2f paddleSize(25, 100);
   leftPaddle.init({0, 0}, paddleSize);
   rightPaddle.init({gameDimensions.x - paddleSize.x, 0}, paddleSize);
+
+  // Setup ball
+  ball.init();
 }
 
 void GameLogic::update(sf::Time& delta)
@@ -47,7 +50,12 @@ sf::Vector2f GameLogic::getPaddleSize(int paddle) const
 
 sf::Vector2f GameLogic::getBallPosition() const
 {
-  return sf::Vector2f();
+  return ball.getCenter();
+}
+
+float GameLogic::getBallRadius() const
+{
+  return ball.getRadius();
 }
 
 void GameLogic::movePaddle(int paddle, PaddleDirection direction)
