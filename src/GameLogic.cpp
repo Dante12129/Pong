@@ -31,7 +31,7 @@ void GameLogic::init(const sf::Vector2u& dimensions)
   rightPaddle.init({gameDimensions.x - paddleSize.x, 0}, paddleSize);
 
   // Setup ball
-  ball.init(initialBallVelocity);
+  ball.init(static_cast<sf::Vector2f>(gameDimensions / 2u), initialBallVelocity);
 
   // Setup scores
   leftScore = 0;
@@ -150,7 +150,6 @@ int GameLogic::getWinningPlayer() const
   else return -1;
 }
 
-// TODO: Win/lose message
 // TODO: Pause
 // Todo: Resizing window
 // TODO: Fix reflection angle

@@ -6,9 +6,9 @@
 
 #include <SFML/System/Time.hpp>
 
-void Ball::init(const sf::Vector2f& vel)
+void Ball::init(const sf::Vector2f& center, const sf::Vector2f& vel)
 {
-  center = {100, 100};
+  this->center = center;
   radius = 20;
   velocity = vel;
 }
