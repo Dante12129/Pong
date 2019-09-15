@@ -25,6 +25,11 @@ void HumanView::init(const GameLogic& logic)
   ball.setRadius(radius);
   ball.setOrigin({radius / 2, radius / 2});
   ball.setPosition(logic.getBallPosition());
+
+  // Set colors
+  leftPaddle.setFillColor(sf::Color::Green);
+  rightPaddle.setFillColor(sf::Color::Red);
+  ball.setFillColor(sf::Color::Cyan);
 }
 
 void HumanView::getKeyboardInput()
