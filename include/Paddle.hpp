@@ -5,10 +5,31 @@
 #ifndef CSCI437_PADDLE_HPP
 #define CSCI437_PADDLE_HPP
 
+#include <SFML/Graphics/Rect.hpp>
+
+// Forward declarations
+namespace sf { class Time; }
 
 class Paddle
 {
+public:
+    // Lifetime methods
+    void init(const sf::Vector2f& position, const sf::Vector2f& size);
 
+    // Logic
+    void move(const sf::Time& delta);
+
+    // State accessors
+    sf::Vector2f getPosition() const;
+    sf::Vector2f getSize() const;
+
+    // State setters
+    void setPosition(const sf::Vector2f& position);
+    void setVelocity(float vel);
+
+private:
+    sf::FloatRect representation;
+    float velocity;
 };
 
 

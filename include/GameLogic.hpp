@@ -8,6 +8,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Rect.hpp>
 
+#include "Paddle.hpp"
 #include "PaddleDirection.hpp"
 
 // Forward declarations
@@ -36,11 +37,8 @@ public:
 private:
     sf::Vector2u gameDimensions;
 
-    sf::FloatRect leftPaddle;
-    sf::FloatRect rightPaddle;
-
-    float leftVelocity;
-    float rightVelocity;
+    Paddle leftPaddle;
+    Paddle rightPaddle;
 };
 
 

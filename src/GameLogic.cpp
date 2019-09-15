@@ -13,35 +13,35 @@ void GameLogic::init(const sf::Vector2u& dimensions)
 
   // Put paddles in starting positions
   const sf::Vector2f paddleSize(25, 100);
-  leftPaddle = sf::FloatRect({0, 0}, paddleSize);
-  rightPaddle = sf::FloatRect({gameDimensions.x - paddleSize.x, 0}, paddleSize);
+  leftPaddle.init({0, 0}, paddleSize);
+  rightPaddle.init({gameDimensions.x - paddleSize.x, 0}, paddleSize);
 }
 
 void GameLogic::update(sf::Time& delta)
 {
   // Move paddles appropriate amount
-  leftPaddle.top += leftVelocity * delta.asSeconds();
-  rightPaddle.top += rightVelocity * delta.asSeconds();
+  leftPaddle.move(delta);
+  rightPaddle.move(delta);
 
   // Ensure paddles don't leave the playing area
-  if(leftPaddle.top < 0) leftPaddle.top = 0;
-  else if(leftPaddle.top + leftPaddle.height > gameDimensions.y) leftPaddle.top = gameDimensions.y - leftPaddle.height;
+  if(leftPaddle.getPosition().y < 0) leftPaddle.setPosition({leftPaddle.getPosition().x, 0});
+  else if(leftPaddle.getPosition().y + leftPaddle.getSize().y > gameDimensions.y) leftPaddle.setPosition({leftPaddle.getPosition().x, gameDimensions.y - leftPaddle.getSize().y});
 
-  if(rightPaddle.top < 0) rightPaddle.top = 0;
-  else if(rightPaddle.top + rightPaddle.height > gameDimensions.y) rightPaddle.top = gameDimensions.y - rightPaddle.height;
+  if(rightPaddle.getPosition().y < 0) rightPaddle.setPosition({rightPaddle.getPosition().x, 0});
+  else if(rightPaddle.getPosition().y + rightPaddle.getSize().y > gameDimensions.y) rightPaddle.setPosition({rightPaddle.getPosition().x, gameDimensions.y - rightPaddle.getSize().y});
 }
 
 sf::Vector2f GameLogic::getPaddlePosition(int paddle) const
 {
-  if(paddle == 0) return {leftPaddle.left, leftPaddle.top};
-  else if(paddle == 1) return {rightPaddle.left, rightPaddle.top};
+  if(paddle == 0) return leftPaddle.getPosition();
+  else if(paddle == 1) return rightPaddle.getPosition();
   else return {-100, -100};
 }
 
 sf::Vector2f GameLogic::getPaddleSize(int paddle) const
 {
-  if(paddle == 0) return {leftPaddle.width, leftPaddle.height};
-  else if(paddle == 1) return {rightPaddle.width, rightPaddle.height};
+  if(paddle == 0) return leftPaddle.getSize();
+  else if(paddle == 1) return rightPaddle.getSize();
   else return {0, 0};
 }
 
@@ -52,12 +52,12 @@ sf::Vector2f GameLogic::getBallPosition() const
 
 void GameLogic::movePaddle(int paddle, PaddleDirection direction)
 {
-  // Select appropriate velocity
-  float& velocity = leftVelocity;
-  if(paddle == 1) velocity = rightVelocity;
+  // Select appropriate paddle
+  Paddle& selectedPaddle = leftPaddle;
+  if(paddle == 1) selectedPaddle = rightPaddle;
 
   // Apply movement to paddle
-  if(direction == PaddleDirection::Up) velocity = -200;
-  else if(direction == PaddleDirection::Down) velocity = 200;
-  else velocity = 0;
+  if(direction == PaddleDirection::Up) selectedPaddle.setVelocity(-200);
+  else if(direction == PaddleDirection::Down) selectedPaddle.setVelocity(200);
+  else selectedPaddle.setVelocity(0);
 }
