@@ -30,11 +30,21 @@ void GameLogic::update(sf::Time& delta)
   ball.move(delta);
 
   // Ensure paddles don't leave the playing area
-  if(leftPaddle.getPosition().y < 0) leftPaddle.setPosition({leftPaddle.getPosition().x, 0});
-  else if(leftPaddle.getPosition().y + leftPaddle.getSize().y > gameDimensions.y) leftPaddle.setPosition({leftPaddle.getPosition().x, gameDimensions.y - leftPaddle.getSize().y});
+  if(leftPaddle.getPosition().y < 0)
+    leftPaddle.setPosition({leftPaddle.getPosition().x, 0});
+  else if(leftPaddle.getPosition().y + leftPaddle.getSize().y > gameDimensions.y)
+    leftPaddle.setPosition({leftPaddle.getPosition().x, gameDimensions.y - leftPaddle.getSize().y});
 
-  if(rightPaddle.getPosition().y < 0) rightPaddle.setPosition({rightPaddle.getPosition().x, 0});
-  else if(rightPaddle.getPosition().y + rightPaddle.getSize().y > gameDimensions.y) rightPaddle.setPosition({rightPaddle.getPosition().x, gameDimensions.y - rightPaddle.getSize().y});
+  if(rightPaddle.getPosition().y < 0)
+    rightPaddle.setPosition({rightPaddle.getPosition().x, 0});
+  else if(rightPaddle.getPosition().y + rightPaddle.getSize().y > gameDimensions.y)
+    rightPaddle.setPosition({rightPaddle.getPosition().x, gameDimensions.y - rightPaddle.getSize().y});
+
+  // Keep ball in bounds
+  if(ball.getCenter().x - ball.getRadius() / 2 < 0 || ball.getCenter().x + ball.getRadius() / 2 > gameDimensions.x)
+    ball.setVelocity({-ball.getVelocity().x, ball.getVelocity().y});
+  if(ball.getCenter().y - ball.getRadius() / 2 < 0 || ball.getCenter().y + ball.getRadius() / 2 > gameDimensions.y)
+    ball.setVelocity({ball.getVelocity().x, -ball.getVelocity().y});
 }
 
 sf::Vector2f GameLogic::getPaddlePosition(int paddle) const

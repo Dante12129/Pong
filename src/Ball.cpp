@@ -10,7 +10,7 @@ void Ball::init()
 {
   center = {200, 200};
   radius = 20;
-  velocity = {300, 300};
+  velocity = {-300, 300};
 }
 
 void Ball::move(const sf::Time& delta)
@@ -32,4 +32,9 @@ float Ball::getRadius() const
 sf::Vector2f Ball::getVelocity() const
 {
   return velocity;
+}
+
+void Ball::setVelocity(const sf::Vector2f& vel)
+{
+  velocity = vel;
 }

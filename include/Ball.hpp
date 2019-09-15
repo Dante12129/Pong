@@ -24,6 +24,9 @@ public:
     float getRadius() const;
     sf::Vector2f getVelocity() const;
 
+    // State setters
+    void setVelocity(const sf::Vector2f& vel);
+
 private:
     sf::Vector2f center;
     float radius;
