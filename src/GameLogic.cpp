@@ -85,11 +85,12 @@ float GameLogic::getBallRadius() const
 void GameLogic::movePaddle(int paddle, PaddleDirection direction)
 {
   // Select appropriate paddle
-  Paddle& selectedPaddle = leftPaddle;
-  if(paddle == 1) selectedPaddle = rightPaddle;
+  Paddle* selectedPaddle = nullptr;
+  if(paddle == 0) selectedPaddle = &leftPaddle;
+  if(paddle == 1) selectedPaddle = &rightPaddle;
 
   // Apply movement to paddle
-  if(direction == PaddleDirection::Up) selectedPaddle.setVelocity(-200);
-  else if(direction == PaddleDirection::Down) selectedPaddle.setVelocity(200);
-  else selectedPaddle.setVelocity(0);
+  if(direction == PaddleDirection::Up) selectedPaddle->setVelocity(-200);
+  else if(direction == PaddleDirection::Down) selectedPaddle->setVelocity(200);
+  else selectedPaddle->setVelocity(0);
 }

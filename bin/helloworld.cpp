@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 
+#include "AIView.hpp"
 #include "GameLogic.hpp"
 #include "HumanView.hpp"
 
@@ -15,6 +16,8 @@ int main(int argc, char** argv)
   // setup views
   HumanView humanView;
   humanView.init(logic);
+  AIView ai;
+  ai.init(logic);
 
   // setup timekeeping
   sf::Clock timekeeper;
@@ -38,8 +41,10 @@ int main(int argc, char** argv)
 
     // process logic
     humanView.sendCommandsTo(logic);
+    ai.sendCommandsTo(logic);
     logic.update(delta);
     humanView.updateFrom(logic);
+    ai.updateFrom(logic);
 
     // clear screen and fill with black
     app.clear(sf::Color::Black);
