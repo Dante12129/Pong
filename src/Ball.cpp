@@ -8,9 +8,9 @@
 
 void Ball::init()
 {
-  center = {200, 200};
+  center = {100, 100};
   radius = 20;
-  velocity = {-300, 300};
+  velocity = {250, 250};
 }
 
 void Ball::move(const sf::Time& delta)

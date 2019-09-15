@@ -23,7 +23,7 @@ void HumanView::init(const GameLogic& logic)
   // Set ball to initial position and size, making sure its origin is on the center
   float radius = logic.getBallRadius();
   ball.setRadius(radius);
-  ball.setOrigin({radius / 2, radius / 2});
+  ball.setOrigin({radius, radius});
   ball.setPosition(logic.getBallPosition());
 
   // Set colors

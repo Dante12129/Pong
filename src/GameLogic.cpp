@@ -41,10 +41,21 @@ void GameLogic::update(sf::Time& delta)
     rightPaddle.setPosition({rightPaddle.getPosition().x, gameDimensions.y - rightPaddle.getSize().y});
 
   // Keep ball in bounds
-  if(ball.getCenter().x - ball.getRadius() / 2 < 0 || ball.getCenter().x + ball.getRadius() / 2 > gameDimensions.x)
+  if(ball.getCenter().x - ball.getRadius() < 0 || ball.getCenter().x + ball.getRadius() > gameDimensions.x)
     ball.setVelocity({-ball.getVelocity().x, ball.getVelocity().y});
-  if(ball.getCenter().y - ball.getRadius() / 2 < 0 || ball.getCenter().y + ball.getRadius() / 2 > gameDimensions.y)
+  if(ball.getCenter().y - ball.getRadius() < 0 || ball.getCenter().y + ball.getRadius() > gameDimensions.y)
     ball.setVelocity({ball.getVelocity().x, -ball.getVelocity().y});
+
+  // Check ball against paddles
+  if(ball.getCenter().x - ball.getRadius() < leftPaddle.getPosition().x + leftPaddle.getSize().x &&
+  ball.getCenter().y > leftPaddle.getPosition().y &&
+  ball.getCenter().y < leftPaddle.getPosition().y + leftPaddle.getSize().y)
+    ball.setVelocity({-ball.getVelocity().x, ball.getVelocity().y});
+
+  if(ball.getCenter().x + ball.getRadius() > rightPaddle.getPosition().x &&
+     ball.getCenter().y > rightPaddle.getPosition().y &&
+     ball.getCenter().y < rightPaddle.getPosition().y + leftPaddle.getSize().y)
+    ball.setVelocity({-ball.getVelocity().x, ball.getVelocity().y});
 }
 
 sf::Vector2f GameLogic::getPaddlePosition(int paddle) const
