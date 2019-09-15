@@ -23,13 +23,14 @@ public:
     HumanView() = default;
 
     // Game loop functionality
-    void init(const GameLogic& logic);
+    void init(const GameLogic& logic, const sf::Vector2u& dimensions);
     void getKeyboardInput();
     void sendCommandsTo(GameLogic& logic) const;
     void updateFrom(const GameLogic& logic);
     void draw(sf::RenderWindow& window);
 
 private:
+    sf::Vector2u viewDimensions;
     PaddleDirection directionToMove;
 
     sf::RectangleShape leftPaddle;

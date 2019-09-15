@@ -15,7 +15,7 @@ int main(int argc, char** argv)
 
   // setup views
   HumanView humanView;
-  humanView.init(logic);
+  humanView.init(logic,  app.getSize());
   AIView ai;
   ai.init(logic);
 

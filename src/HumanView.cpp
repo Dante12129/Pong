@@ -11,8 +11,11 @@
 
 #include "GameLogic.hpp"
 
-void HumanView::init(const GameLogic& logic)
+void HumanView::init(const GameLogic& logic, const sf::Vector2u& dimensions)
 {
+  // Save dimensions
+  viewDimensions = dimensions;
+
   // Make sure player paddle is initially stationary
   directionToMove = PaddleDirection::None;
 
@@ -40,6 +43,12 @@ void HumanView::init(const GameLogic& logic)
   }
   playerScore.setFont(mainFont);
   aiScore.setFont(mainFont);
+
+  // Position and size scores
+  playerScore.setPosition({viewDimensions.x / 4.f, 0});
+  playerScore.setCharacterSize(48);
+  aiScore.setPosition({3.f * viewDimensions.x / 4.f, 0});
+  aiScore.setCharacterSize(48);
 }
 
 void HumanView::getKeyboardInput()
