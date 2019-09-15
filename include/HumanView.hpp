@@ -25,8 +25,7 @@ public:
     // Game loop functionality
     void init(const GameLogic& logic, const sf::Vector2u& dimensions);
     void getKeyboardInput();
-    void sendCommandsTo(GameLogic& logic) const;
-    void sendCommandsTo(bool& running) const;
+    void sendCommandsTo(GameLogic& logic, bool& running) const;
     void updateFrom(const GameLogic& logic);
     void draw(sf::RenderWindow& window);
 

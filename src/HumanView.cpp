@@ -75,20 +75,23 @@ void HumanView::getKeyboardInput()
   quitRequested = sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
 }
 
-void HumanView::sendCommandsTo(GameLogic& logic) const
+void HumanView::sendCommandsTo(GameLogic& logic, bool& running) const
 {
+  // Tell paddle to move
   logic.movePaddle(0, directionToMove);
 
+  // Restart if needed
   if(restartRequested && logic.checkWin())
   {
     restartRequested = false;
     logic.restart();
   }
-}
 
-void HumanView::sendCommandsTo(bool& running) const
-{
-  running = !quitRequested;
+  // Quit if need
+  if(quitRequested && logic.checkWin())
+  {
+    running = false;
+  }
 }
 
 void HumanView::updateFrom(const GameLogic& logic)

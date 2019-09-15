@@ -39,10 +39,9 @@ int main(int argc, char** argv)
         app.close();
     }
     humanView.getKeyboardInput();
-    humanView.sendCommandsTo(running);
 
     // process logic
-    humanView.sendCommandsTo(logic);
+    humanView.sendCommandsTo(logic, running);
     ai.sendCommandsTo(logic);
     logic.update(delta);
     humanView.updateFrom(logic);
