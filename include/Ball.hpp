@@ -25,6 +25,7 @@ public:
     sf::Vector2f getVelocity() const;
 
     // State setters
+    void setCenter(const sf::Vector2f& center);
     void setVelocity(const sf::Vector2f& vel);
 
 private:

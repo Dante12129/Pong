@@ -50,12 +50,18 @@ void GameLogic::update(sf::Time& delta)
   if(ball.getCenter().x - ball.getRadius() < leftPaddle.getPosition().x + leftPaddle.getSize().x &&
      ball.getCenter().y > leftPaddle.getPosition().y &&
      ball.getCenter().y < leftPaddle.getPosition().y + leftPaddle.getSize().y)
+  {
+    ball.setCenter({leftPaddle.getPosition().x + leftPaddle.getSize().x + ball.getRadius(), ball.getCenter().y});
     ball.setVelocity({-ball.getVelocity().x, ball.getVelocity().y});
+  }
 
   if(ball.getCenter().x + ball.getRadius() > rightPaddle.getPosition().x &&
      ball.getCenter().y > rightPaddle.getPosition().y &&
      ball.getCenter().y < rightPaddle.getPosition().y + leftPaddle.getSize().y)
+  {
+    ball.setCenter({rightPaddle.getPosition().x - ball.getRadius(), ball.getCenter().y});
     ball.setVelocity({-ball.getVelocity().x, ball.getVelocity().y});
+  }
 }
 
 sf::Vector2f GameLogic::getPaddlePosition(int paddle) const

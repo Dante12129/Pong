@@ -34,6 +34,11 @@ sf::Vector2f Ball::getVelocity() const
   return velocity;
 }
 
+void Ball::setCenter(const sf::Vector2f& center)
+{
+  this->center = center;
+}
+
 void Ball::setVelocity(const sf::Vector2f& vel)
 {
   velocity = vel;
