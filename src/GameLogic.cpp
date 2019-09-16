@@ -4,6 +4,8 @@
 
 #include "GameLogic.hpp"
 
+#include <iostream>
+
 #include <SFML/System/Time.hpp>
 
 namespace
@@ -20,7 +22,7 @@ void GameLogic::init(const sf::Vector2u& dimensions)
 {
   // Setup the RNG
   rng.seed(0);
-  distribution = std::uniform_int_distribution<>(-200, 200);
+  distribution = std::uniform_int_distribution<>(0, 10);
 
   // Set up the playing area
   gameDimensions = dimensions;
@@ -30,7 +32,7 @@ void GameLogic::init(const sf::Vector2u& dimensions)
   rightPaddle.init({gameDimensions.x - initialPaddleSize.x, 0}, initialPaddleSize);
 
   // Setup ball
-  ball.init(static_cast<sf::Vector2f>(gameDimensions / 2u), 300, 45);
+  ball.init(static_cast<sf::Vector2f>(gameDimensions / 2u), 300, 70);
 
   // Setup scores
   leftScore = 0;
@@ -74,7 +76,7 @@ void GameLogic::update(sf::Time& delta)
   }
   if(ball.getCenter().y - ball.getRadius() < 0 || ball.getCenter().y + ball.getRadius() > gameDimensions.y)
   {
-    reverseBall();
+    reverseBall(Side::TopBottom);
   }
 
   // Check ball against paddles
@@ -83,7 +85,7 @@ void GameLogic::update(sf::Time& delta)
      ball.getCenter().y < leftPaddle.getPosition().y + leftPaddle.getSize().y)
   {
     ball.setCenter({leftPaddle.getPosition().x + leftPaddle.getSize().x + ball.getRadius(), ball.getCenter().y});
-    reverseBall();
+    reverseBall(Side::Left);
   }
 
   if(ball.getCenter().x + ball.getRadius() > rightPaddle.getPosition().x &&
@@ -91,7 +93,7 @@ void GameLogic::update(sf::Time& delta)
      ball.getCenter().y < rightPaddle.getPosition().y + leftPaddle.getSize().y)
   {
     ball.setCenter({rightPaddle.getPosition().x - ball.getRadius(), ball.getCenter().y});
-    reverseBall();
+    reverseBall(Side::Right);
   }
 }
 
@@ -180,9 +182,29 @@ int GameLogic::getWinningPlayer() const
   else return -1;
 }
 
-void GameLogic::reverseBall()
+void GameLogic::reverseBall(Side side)
 {
-  ball.setAngle(ball.getAngle() + 90 % 360);
+  // Calculate reflected angle
+  float newAngle = 0;
+
+  if(side == Side::TopBottom)
+  {
+    newAngle = ball.getAngle() - 2 * ball.getAngle();
+  }
+  else if(side == Side::Left || side == Side::Right)
+  {
+    newAngle = ball.getAngle() + 2 * (90 - ball.getAngle());
+  }
+  // Keep the angle in the range [0,360]
+  newAngle = std::fmod(360 + std::fmod(newAngle, 360), 360); // Because C++ mod does not work like one would think
+
+  // Calculate random component
+  int randomDegrees = distribution(rng);
+
+  // Actual reverse
+  std::cout << "Original Angle: " << ball.getAngle() << '\n';
+  ball.setAngle(newAngle);
+  std::cout << "New Angle: " << ball.getAngle() << "\n\n";
 }
 
 // TODO: Random angle again

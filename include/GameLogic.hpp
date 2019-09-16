@@ -50,7 +50,14 @@ public:
     int getWinningPlayer() const;
 
 private:
-    void reverseBall();
+    enum class Side
+    {
+        TopBottom,
+        Left,
+        Right
+    };
+
+    void reverseBall(Side side);
 
 private:
     // RNG
