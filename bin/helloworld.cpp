@@ -7,7 +7,7 @@
 int main(int argc, char** argv)
 {
   // create main window
-  sf::RenderWindow app(sf::VideoMode(800,600,32), "Pong", sf::Style::Titlebar | sf::Style::Close);
+  sf::RenderWindow app(sf::VideoMode(800,600,32), "Pong");
 
   // setup logic
   GameLogic logic;
@@ -40,6 +40,17 @@ int main(int argc, char** argv)
       {
         running = false;
         app.close();
+      }
+      // Resize
+      if (event.type == sf::Event::Resized)
+      {
+        // update the view to the new size of the window
+        sf::FloatRect visibleArea(0.f, 0.f, event.size.width, event.size.height);
+        app.setView(sf::View(visibleArea));
+
+        // update logic and human view with new size
+        logic.onResize({event.size.width, event.size.height});
+        humanView.init(logic, {event.size.width, event.size.height});
       }
       // Let view handle events relevant to itself
       humanView.processEvents(event);

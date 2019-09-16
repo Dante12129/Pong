@@ -26,9 +26,8 @@ void GameLogic::init(const sf::Vector2u& dimensions)
   gameDimensions = dimensions;
 
   // Put paddles in starting positions
-  const sf::Vector2f paddleSize(25, 100);
-  leftPaddle.init({0, 0}, paddleSize);
-  rightPaddle.init({gameDimensions.x - paddleSize.x, 0}, paddleSize);
+  leftPaddle.init({0, 0}, initialPaddleSize);
+  rightPaddle.init({gameDimensions.x - initialPaddleSize.x, 0}, initialPaddleSize);
 
   // Setup ball
   ball.init(static_cast<sf::Vector2f>(gameDimensions / 2u), initialBallVelocity);
@@ -102,14 +101,38 @@ void GameLogic::movePaddle(int paddle, PaddleDirection direction)
   if(paddle == 1) selectedPaddle = &rightPaddle;
 
   // Apply movement to paddle
-  if(direction == PaddleDirection::Up) selectedPaddle->setVelocity(-200);
-  else if(direction == PaddleDirection::Down) selectedPaddle->setVelocity(200);
+  if(direction == PaddleDirection::Up) selectedPaddle->setVelocity(-200 * paddleVelocityMultiplier);
+  else if(direction == PaddleDirection::Down) selectedPaddle->setVelocity(200 * paddleVelocityMultiplier);
   else selectedPaddle->setVelocity(0);
 }
 
 void GameLogic::restart()
 {
   init(gameDimensions);
+}
+
+void GameLogic::onResize(sf::Vector2u newDimensions)
+{
+  gameDimensions = newDimensions;
+
+  // Recalculate positions
+  rightPaddle.setPosition({gameDimensions.x - rightPaddle.getSize().x, 0});
+
+  // Recalculate sizes and velocities
+  if(gameDimensions.y > 1000)
+  {
+    leftPaddle.setSize({leftPaddle.getSize().x, initialPaddleSize.y * 2});
+    rightPaddle.setSize({rightPaddle.getSize().x, initialPaddleSize.y * 2});
+
+    paddleVelocityMultiplier = 1.5;
+  }
+  else
+  {
+    leftPaddle.setSize(initialPaddleSize);
+    rightPaddle.setSize(initialPaddleSize);
+
+    paddleVelocityMultiplier = 1.0;
+  }
 }
 
 sf::Vector2f GameLogic::getPaddlePosition(int paddle) const

@@ -37,3 +37,9 @@ void Paddle::setVelocity(float vel)
 {
   velocity = vel;
 }
+
+void Paddle::setSize(const sf::Vector2f& size)
+{
+  representation.width = size.x;
+  representation.height = size.y;
+}

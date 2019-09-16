@@ -31,6 +31,9 @@ public:
     void movePaddle(int paddle, PaddleDirection direction);
     void restart();
 
+    // Handle resizing
+    void onResize(sf::Vector2u newDimensions);
+
     // State accessors for paddle
     sf::Vector2f getPaddlePosition(int paddle) const;
     sf::Vector2f getPaddleSize(int paddle) const;
@@ -54,6 +57,8 @@ private:
     // Misc elements
     sf::Vector2u gameDimensions;
     const sf::Vector2f initialBallVelocity = {250, 250};
+    const sf::Vector2f initialPaddleSize = {25, 100};
+    float paddleVelocityMultiplier = 1.0;
 
     // Physical elements
     Paddle leftPaddle;

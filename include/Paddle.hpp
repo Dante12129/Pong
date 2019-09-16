@@ -25,6 +25,7 @@ public:
 
     // State setters
     void setPosition(const sf::Vector2f& position);
+    void setSize(const sf::Vector2f& size);
     void setVelocity(float vel);
 
 private:
