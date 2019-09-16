@@ -4,8 +4,6 @@
 
 #include "GameLogic.hpp"
 
-#include <iostream>
-
 #include <SFML/System/Time.hpp>
 
 namespace
@@ -22,7 +20,7 @@ void GameLogic::init(const sf::Vector2u& dimensions)
 {
   // Setup the RNG
   rng.seed(0);
-  distribution = std::uniform_int_distribution<>(0, 10);
+  distribution = std::uniform_int_distribution<>(0, 15);
 
   // Set up the playing area
   gameDimensions = dimensions;
@@ -32,7 +30,7 @@ void GameLogic::init(const sf::Vector2u& dimensions)
   rightPaddle.init({gameDimensions.x - initialPaddleSize.x, 0}, initialPaddleSize);
 
   // Setup ball
-  ball.init(static_cast<sf::Vector2f>(gameDimensions / 2u), 300, 70);
+  ball.init(static_cast<sf::Vector2f>(gameDimensions / 2u), 350, 45);
 
   // Setup scores
   leftScore = 0;
@@ -195,16 +193,16 @@ void GameLogic::reverseBall(Side side)
   {
     newAngle = ball.getAngle() + 2 * (90 - ball.getAngle());
   }
-  // Keep the angle in the range [0,360]
-  newAngle = std::fmod(360 + std::fmod(newAngle, 360), 360); // Because C++ mod does not work like one would think
 
   // Calculate random component
   int randomDegrees = distribution(rng);
+  newAngle += randomDegrees;
+
+  // Keep the angle in the range [0,360]
+  newAngle = std::fmod(360 + std::fmod(newAngle, 360), 360); // Because C++ mod does not work like one would think
 
   // Actual reverse
-  std::cout << "Original Angle: " << ball.getAngle() << '\n';
   ball.setAngle(newAngle);
-  std::cout << "New Angle: " << ball.getAngle() << "\n\n";
 }
 
 // TODO: Random angle again
