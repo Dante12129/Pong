@@ -178,7 +178,6 @@ int GameLogic::getWinningPlayer() const
   else return -1;
 }
 
-// Todo: Resizing window
 // TODO: Fix reflection angle
 // TODO: Normalize ball velocity
 // TODO: Better collision detection
