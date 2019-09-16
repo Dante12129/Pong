@@ -7,6 +7,7 @@
 #include <stdexcept>
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Event.hpp>
 #include <SFML/Window/Keyboard.hpp>
 
 #include "GameLogic.hpp"
@@ -75,7 +76,15 @@ void HumanView::getKeyboardInput()
   quitRequested = sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
 }
 
-void HumanView::sendCommandsTo(GameLogic& logic, bool& running) const
+void HumanView::processEvents(const sf::Event& event)
+{
+  if(event.type == sf::Event::LostFocus)
+    paused = true;
+  else if(event.type == sf::Event::GainedFocus)
+    paused = false;
+}
+
+void HumanView::sendCommandsTo(GameLogic& logic, bool& running, float& timeMultiplier) const
 {
   // Tell paddle to move
   logic.movePaddle(0, directionToMove);
@@ -92,6 +101,9 @@ void HumanView::sendCommandsTo(GameLogic& logic, bool& running) const
   {
     running = false;
   }
+
+  // Pause if needed
+  timeMultiplier = paused ? 0.0 : 1.0;
 }
 
 void HumanView::updateFrom(const GameLogic& logic)

@@ -34,7 +34,7 @@ void GameLogic::init(const sf::Vector2u& dimensions)
   ball.init(static_cast<sf::Vector2f>(gameDimensions / 2u), initialBallVelocity);
 
   // Setup scores
-  leftScore = 10;
+  leftScore = 0;
   rightScore = 0;
 }
 
@@ -155,8 +155,6 @@ int GameLogic::getWinningPlayer() const
   else return -1;
 }
 
-// TODO: Restart
-// TODO: Pause
 // Todo: Resizing window
 // TODO: Fix reflection angle
 // TODO: Normalize ball velocity

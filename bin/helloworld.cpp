@@ -22,6 +22,7 @@ int main(int argc, char** argv)
   // setup timekeeping
   sf::Clock timekeeper;
   sf::Time delta;
+  float timeMultiplier = 1.0;
 
   // start main loop
   bool running = true;
@@ -31,19 +32,24 @@ int main(int argc, char** argv)
     delta = timekeeper.restart();
 
     // process events
-    sf::Event Event;
-    while(app.pollEvent(Event))
+    sf::Event event;
+    while(app.pollEvent(event))
     {
       // Exit
-      if(Event.type == sf::Event::Closed)
+      if(event.type == sf::Event::Closed)
+      {
+        running = false;
         app.close();
+      }
+      // Let view handle events relevant to itself
+      humanView.processEvents(event);
     }
     humanView.getKeyboardInput();
 
     // process logic
-    humanView.sendCommandsTo(logic, running);
+    humanView.sendCommandsTo(logic, running, timeMultiplier);
     ai.sendCommandsTo(logic);
-    logic.update(delta);
+    logic.update(delta *= timeMultiplier);
     humanView.updateFrom(logic);
     ai.updateFrom(logic);
 

@@ -13,7 +13,7 @@
 #include "PaddleDirection.hpp"
 
 // Forward declarations
-namespace sf { class RenderWindow; }
+namespace sf { class RenderWindow; class Event; }
 class GameLogic;
 
 class HumanView
@@ -25,7 +25,8 @@ public:
     // Game loop functionality
     void init(const GameLogic& logic, const sf::Vector2u& dimensions);
     void getKeyboardInput();
-    void sendCommandsTo(GameLogic& logic, bool& running) const;
+    void processEvents(const sf::Event& event);
+    void sendCommandsTo(GameLogic& logic, bool& running, float& timeMultiplier) const;
     void updateFrom(const GameLogic& logic);
     void draw(sf::RenderWindow& window);
 
@@ -35,6 +36,7 @@ private:
     PaddleDirection directionToMove;
     mutable bool restartRequested = false;
     bool quitRequested = false;
+    bool paused = false;
 
     // Game object visuals
     sf::RectangleShape leftPaddle;
