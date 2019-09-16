@@ -30,7 +30,7 @@ void GameLogic::init(const sf::Vector2u& dimensions)
   rightPaddle.init({gameDimensions.x - initialPaddleSize.x, 0}, initialPaddleSize);
 
   // Setup ball
-  ball.init(static_cast<sf::Vector2f>(gameDimensions / 2u), initialBallVelocity);
+  ball.init(static_cast<sf::Vector2f>(gameDimensions / 2u), 300, 45);
 
   // Setup scores
   leftScore = 0;
@@ -63,17 +63,19 @@ void GameLogic::update(sf::Time& delta)
     rightScore += 1;
     ball.setCenter(static_cast<sf::Vector2f>(gameDimensions / 2u));
     if(checkWin())
-      ball.setVelocity({0, 0});
+      ball.setVelocity(0);
   }
   if(ball.getCenter().x + ball.getRadius() > gameDimensions.x)
   {
     leftScore += 1;
     ball.setCenter(static_cast<sf::Vector2f>(gameDimensions / 2u));
     if(checkWin())
-      ball.setVelocity({0, 0});
+      ball.setVelocity(0);
   }
   if(ball.getCenter().y - ball.getRadius() < 0 || ball.getCenter().y + ball.getRadius() > gameDimensions.y)
-    ball.setVelocity({ball.getVelocity().x, -sign(ball.getVelocity().y) * (initialBallVelocity.y + distribution(rng))});
+  {
+    reverseBall();
+  }
 
   // Check ball against paddles
   if(ball.getCenter().x - ball.getRadius() < leftPaddle.getPosition().x + leftPaddle.getSize().x &&
@@ -81,7 +83,7 @@ void GameLogic::update(sf::Time& delta)
      ball.getCenter().y < leftPaddle.getPosition().y + leftPaddle.getSize().y)
   {
     ball.setCenter({leftPaddle.getPosition().x + leftPaddle.getSize().x + ball.getRadius(), ball.getCenter().y});
-    ball.setVelocity({-sign(ball.getVelocity().x) * (initialBallVelocity.x + distribution(rng)), ball.getVelocity().y});
+    reverseBall();
   }
 
   if(ball.getCenter().x + ball.getRadius() > rightPaddle.getPosition().x &&
@@ -89,7 +91,7 @@ void GameLogic::update(sf::Time& delta)
      ball.getCenter().y < rightPaddle.getPosition().y + leftPaddle.getSize().y)
   {
     ball.setCenter({rightPaddle.getPosition().x - ball.getRadius(), ball.getCenter().y});
-    ball.setVelocity({-sign(ball.getVelocity().x) * (initialBallVelocity.x + distribution(rng)), ball.getVelocity().y});
+    reverseBall();
   }
 }
 
@@ -178,6 +180,10 @@ int GameLogic::getWinningPlayer() const
   else return -1;
 }
 
-// TODO: Fix reflection angle
-// TODO: Normalize ball velocity
+void GameLogic::reverseBall()
+{
+  ball.setAngle(ball.getAngle() + 90 % 360);
+}
+
+// TODO: Random angle again
 // TODO: Better collision detection

@@ -14,7 +14,7 @@ class Ball
 {
 public:
     // Lifetime methods
-    void init(const sf::Vector2f& center, const sf::Vector2f& vel);
+    void init(const sf::Vector2f& center, float vel, float ang);
 
     // Commands
     void move(const sf::Time& delta);
@@ -22,16 +22,22 @@ public:
     // State accessors
     sf::Vector2f getCenter() const;
     float getRadius() const;
-    sf::Vector2f getVelocity() const;
+    float getVelocity() const;
+    float getAngle() const;
 
     // State setters
     void setCenter(const sf::Vector2f& center);
-    void setVelocity(const sf::Vector2f& vel);
+    void setVelocity(float vel);
+    void setAngle(float ang);
 
 private:
+    // Location info
     sf::Vector2f center;
     float radius;
-    sf::Vector2f velocity;
+
+    // Movement info
+    float velocity;
+    float angle;
 };
 
 

@@ -50,13 +50,15 @@ public:
     int getWinningPlayer() const;
 
 private:
+    void reverseBall();
+
+private:
     // RNG
     std::mt19937 rng;
     std::uniform_int_distribution<int> distribution;
 
     // Misc elements
     sf::Vector2u gameDimensions;
-    const sf::Vector2f initialBallVelocity = {250, 250};
     const sf::Vector2f initialPaddleSize = {25, 100};
     float paddleVelocityMultiplier = 1.0;
 
