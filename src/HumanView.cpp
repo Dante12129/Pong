@@ -38,7 +38,7 @@ void HumanView::init(const GameLogic& logic, const sf::Vector2u& dimensions)
   ball.setFillColor(sf::Color::Cyan);
 
   // Load font and use it for scores
-  if(!mainFont.loadFromFile("ShareTechMono-Regular.ttf"))
+  if(!mainFont.loadFromFile("../ShareTechMono-Regular.ttf"))
   {
     throw std::runtime_error("Could not load font");
   }
