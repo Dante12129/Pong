@@ -1,3 +1,7 @@
+A Pong game written in C++ and SFML. The gmae logic is separated from the views in order to keep a clean separation between rules and input. This also allows AI to be implemented fairly easily by also making it a view.
+
+
+
 **PREREQUISITES**
 
 - CMAKE (www.cmake.org)
